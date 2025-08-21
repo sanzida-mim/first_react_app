@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react"
-import Search from "./components/Search"
-import Spinner from "./components/Spinner"
-import MovieCard from "./components/MovieCard";
+import React, { useEffect, useState } from 'react'
+import Search from './components/Search'
+import Spinner from './components/Spinner'
+import MovieCard from './components/MovieCard';
 
 const API_BASE_URL = 'https://api.themoviedb.org/3';
 
@@ -21,12 +21,14 @@ const App = () => {
   const [movieList, setmovieList] = useState([]);
   const [isloading, setisloading] = useState(false);
 
-  const fetchMovies = async () => {
+  const fetchMovies = async (query = '') => {
     setisloading(true);
     setErrorMsg('');
 
     try {
-      const endpoint = `${API_BASE_URL}/discover/movie?sort_by=popularity.desc`;
+      const endpoint = query 
+      ? `${API_BASE_URL}/search/movie?query=${encodeURIComponent(query)}`
+      : `${API_BASE_URL}/discover/movie?sort_by=popularity.desc`;
 
       const response = await fetch(endpoint, API_OPTIONS);
 
@@ -52,28 +54,28 @@ const App = () => {
   }
 
   useEffect(() => {
-    fetchMovies();
-  }, []);
+    fetchMovies(searchTerm);
+  }, [searchTerm]);
 
   return (
     <main>
-      <div className="pattern" />
+      <div className='pattern' />
 
-        <div className="wrapper">
+        <div className='wrapper'>
           <header>
-            <img src="./hero.png" alt="Hero Banner" />
-            <h1>Find <span className="text-gradient">Movies</span> You"ll Enjoy Without the Hassle!</h1>
+            <img src='./hero.png' alt='Hero Banner' />
+            <h1>Find <span className='text-gradient'>Movies</span> You'll Enjoy Without the Hassle!</h1>
 
             <Search searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
           </header>
 
-          <section className="all-movies">
-            <h2 className="mt-[40px]">All Movies</h2>
+          <section className='all-movies'>
+            <h2 className='mt-[40px]'>All Movies</h2>
 
             {isloading ? (
               <Spinner />
             ) : errorMsg ? (
-              <p className="text-red-500">{errorMsg}</p>
+              <p className='text-red-500'>{errorMsg}</p>
             ) : (
               <ul>
                 {movieList.map((movie) => (
