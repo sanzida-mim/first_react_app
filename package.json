@@ -14,6 +14,7 @@
     "deploy": "gh-pages -d dist"
   },
   "dependencies": {
+    "appwrite": "^18.2.0",
     "debounce": "^2.2.0",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
