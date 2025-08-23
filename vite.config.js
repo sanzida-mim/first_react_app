@@ -6,5 +6,3 @@ export default defineConfig({
   base: '/react_movie_app/',
   plugins: [react()],
 })
-
-
